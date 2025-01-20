@@ -20,7 +20,7 @@ const Paper: FC<IWrapper & { title: string }> = ({ children, title }) => {
     }
 
     return (
-        <div className="bg-blue-200 shadow-lg max-h-[80%] min-h-[20%] rounded lg:p-8 md:p-5 p-2 md:mx-4 lg:mx-10 mx-2 my-3">
+        <div className="bg-blue-200 shadow-lg h-[80%]  rounded lg:p-8 md:p-5 p-2 md:mx-4 lg:mx-10 mx-2 my-3">
             <Modal isOpen={isModalOpen} onClose={onclose} >
                 <TaskForm id={Number(id)} onclose={onclose} />
             </Modal>
