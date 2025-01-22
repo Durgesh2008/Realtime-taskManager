@@ -1,10 +1,11 @@
 import { FC } from "react"
 import { IWrapper } from "./IWrapper"
-
+import Navbar from "../Header/Navbar";
 
 const WrapperContainer: FC<IWrapper> = ({ children }) => {
     return (
         <div className=' h-screen bg-[#93c5fd]   font-satoshi'>
+                <Navbar />
             {children}
     
         </div>
