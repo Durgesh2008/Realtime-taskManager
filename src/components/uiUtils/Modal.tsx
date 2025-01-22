@@ -18,7 +18,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
       onClick={onClose}
     >
       <div
-        className="bg-[#16404D]  bg-opacity-100 w-[90%] md:w-1/2 lg:w-1/4 rounded-lg shadow-lg md:p-8 p-6 relative animate-fade-in"
+        className="bg-[#C4D9FF] dark:bg-[#16404D]  bg-opacity-100 w-[90%] md:w-1/2 lg:w-1/4 rounded-lg shadow-lg md:p-8 p-6 relative animate-fade-in"
         onClick={(e) => e.stopPropagation()}
       >
         <button
