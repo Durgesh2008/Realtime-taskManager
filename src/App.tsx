@@ -1,5 +1,4 @@
 import { Route, Routes } from "react-router-dom";
-import Navbar from "./components/Header/Navbar";
 import CoverPage from "./components/Home/CoverPage";
 import WrapperContainer from "./components/Wrapper/WrapperContainer";
 import { lazy, Suspense } from "react";
@@ -11,7 +10,6 @@ const Tasks = lazy(() => import("./components/Tasks/Tasks"));
 const App = () => {
   return (
     <WrapperContainer>
-      <Navbar />
       <Routes>
         <Route path="/" element={<CoverPage />} />
         <Route
