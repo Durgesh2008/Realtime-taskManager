@@ -56,7 +56,12 @@ const TaskTable = () => {
       socket?.off("task_updated", handleTaskUpdate);
     };
   }, [socket, fetchAgain]);
-
+  if (error) {
+    return <> <ErrorPage type={ErrorType.ServerError} msg={error} /></>
+  }
+  if (loading) {
+    return <Loading />
+  }
   return (
     <>
       <div className="bg-white   flex justify-around items-start  md:items-center flex-col md:flex-row gap-y-1  md:gap-x-4 border-b dark:bg-gray-800 dark:border-gray-700 mb-2 p-2 rounded">
@@ -129,11 +134,10 @@ const TaskTable = () => {
         <ErrorPage type={ErrorType.NoData} msg="No Task Data found " />
       ) : (
         <>
-          {error ? (
-            <ErrorPage type={ErrorType.ServerError} msg={error} />
-          ) : (
-            <>
-              <table className="w-full  text-sm text-left rtl:text-right text-gray-500 overflow-auto dark:text-gray-400">
+          < >
+            <div className="overflow-x-auto">
+
+              <table className="w-full text-sm text-left rtl:text-right text-gray-500  dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr>
                     <th scope="col" className="px-6 py-3">
@@ -151,72 +155,71 @@ const TaskTable = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {loading ? (
-                    <Loading />
-                  ) : (
-                    (TableData as ITableRow[])?.map((ele: ITableRow) => (
-                      <TableRow
-                        key={ele.id}
-                        name={ele.name}
-                        id={ele.id}
-                        createdAt={ele.createdAt || ""}
-                        status={ele.status}
-                      />
-                    ))
-                  )}
+                  {(TableData as ITableRow[])?.map((ele: ITableRow) => (
+                    <TableRow
+                      key={ele.id}
+                      name={ele.name}
+                      id={ele.id}
+                      createdAt={ele.createdAt || ""}
+                      status={ele.status}
+                    />
+                  ))}
                 </tbody>
               </table>
-              <div className="bg-white  sticky bottom-0  flex justify-between  gap-x-4 border-b dark:bg-gray-800 dark:border-gray-700 mt-2 p-2 rounded">
-                <div className="flex w-1/3 justify-around">
-                  <span className="dark:text-white text-gray-800">Total Task:{totalTask}</span>
-                  <span className="dark:text-white ">Current Page:{page}</span>
-                </div>
 
-                <div className="flex w-1/2 gap-x-10 justify-end items-center">
-                  <button
-                    disabled={page <= 1}
-                    onClick={handlePrevPage}
-                    className="px-3 py-1 bg-transparent cursor-pointer rounded-md text-gray-800 dark:text-white outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="size-6"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M15.75 19.5 8.25 12l7.5-7.5"
-                      />
-                    </svg>
-                  </button>
-                  <button
-                    disabled={page >= totalpages}
-                    onClick={handleNextPage}
-                    className="px-3 py-1 cursor-pointer bg-transparent  rounded-md text-gray-800 dark:text-white outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="size-6"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="m8.25 4.5 7.5 7.5-7.5 7.5"
-                      />
-                    </svg>
-                  </button>
-                </div>
+
+            </div>
+            <div className="bg-white  sticky bottom-0  flex justify-between  gap-x-4 border-b dark:bg-gray-800 dark:border-gray-700 mt-2 p-2 rounded">
+              <div className="flex w-1/3 justify-around">
+                <span className="dark:text-white text-gray-800">Total Task:{totalTask}</span>
+                <span className="dark:text-white ">Current Page:{page}</span>
               </div>
-            </>
-          )}
+
+              <div className="flex w-1/2 gap-x-10 justify-end items-center">
+                <button
+                  disabled={page <= 1}
+                  onClick={handlePrevPage}
+                  className="px-3 py-1 bg-transparent cursor-pointer rounded-md text-gray-800 dark:text-white outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="size-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M15.75 19.5 8.25 12l7.5-7.5"
+                    />
+                  </svg>
+                </button>
+                <button
+                  disabled={page >= totalpages}
+                  onClick={handleNextPage}
+                  className="px-3 py-1 cursor-pointer bg-transparent  rounded-md text-gray-800 dark:text-white outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="size-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="m8.25 4.5 7.5 7.5-7.5 7.5"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </>
+
         </>
       )}
 
